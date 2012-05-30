@@ -1,0 +1,75 @@
+calcpkg - Changelog
+
+------------------------------------------------------------------------
+
+Version 2.0 (not yet released to ticalc.org):
+
+-Now supports multiple 'repositories' (preliminary support for Cemetech exists)
+-Package has been renamed to "calcrepo", script is still called calcpkg
+-Argument switches and command line help have all been overhauled
+-Most of the code has been rewritten and further modularized
+-And more!
+
+------------------------------------------------------------------------
+
+Version 1.1 (sixth version released to ticalc.org, uploaded 9/2/11):
+
+-Changed list output with -f switch to display archive file name (title is still displayed without -f switch)
+-Fixed bug where combining -f and -c [category] switches did not work
+-Fixed bug with logging not working due to 1.0 update, disabled entirely on Windows but log by default on Linux (to /tmp/calpkg.log).
+-Combined -n and -p options into a global -y (--assume-yes) option
+-Clean command now merely deletes the .index files (the 1.0 update broke it)
+
+------------------------------------------------------------------------
+
+Version 1.0 (fifth version released to ticalc.org, uploaded 8/26/11):
+
+-Added an "info" command that uses HTML parsing to get file info
+-Added support to automatically extract .tar.gz (.tgz) and .tar.bz2 archives
+-Changed calcpkg.py line encoding to Unix, so it's executable on Unix systems
+-Changed output formatting for "list" command to take up less space
+-Restructured program- now contains Python ticalcDotOrg package and calcpkg script
+-Program now installs as a normal Python package
+-Program now downloads to your Downloads folder (ex: /home/username/Downloads, C:\Users\username\Downloads)
+-Renamed script from "calcpkg.py" to "calcpkg" (so you don't have to type .py all the time, it's still a Python file).
+
+------------------------------------------------------------------------
+
+Version 0.8 (fourth version released to ticalc.org, uploaded 2/5/10):
+
+-Added a fake "install" command that does the same thing as "get"
+-Added an option to search by file extensions (like .zip or .tar.gz)
+-Added an option to extract all .zip archives on download, named like:
+	"83plus-asm-games-generate-zip"
+-Added an option to only print the version and then exit
+-Clean command will now remove files created by the extraction option
+-Fixed a bug when using the get command with search options where it downloaded as if the opts weren't specified
+
+------------------------------------------------------------------------
+
+Version 0.7 (third version released to ticalc.org, uploaded 12/19/10):
+
+-Added an option to search the file index rather than the name index (-f)
+-Added logging functionality (-l) that logs output to a textfile, calcpkg.log
+-Added clean command, which removes all .zip, .tar.gz, and .log files from the current folder
+-Added mechanism for easily redirecting output (allowing another program to make all the print statements go somewhere else)
+-Added a fake "search" command that does the same thing as "list"
+-Added options for disabling the prompts before downloading and updating (-n and -p respectively)
+-Included a sample script that shows how calcpkg can be imported in a module and used as part of another program
+-Fixed bug where -g and -m searching options ran together would not work
+-The searching options now work with the count and get commands as well
+
+------------------------------------------------------------------------
+
+Version 0.6 (second version released to ticalc.org, uploaded 12/04/10):
+
+-Fixed bug that prevented the program from being ran directly without "python " in front.
+-Added case-insensitive searching (both list and count)
+-Downloaded files now include their ticalc.org path in their name, for instance:
+	"83plus-asm-games-generate.zip"
+-Added some command-line opts for searching, see Readme.txt or run calcpkg.py -h for documentation on them
+-Uploaded a separate Unix/Linux version with Unix/Linux file endings
+
+------------------------------------------------------------------------
+
+Version 0.5: First version uploaded to ticalc.org, not labelled as such

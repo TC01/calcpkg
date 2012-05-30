@@ -1,0 +1,49 @@
+Installing calcpkg:
+
+There are two ways to install. Downloading the archive from ticalc.org will get
+you the last released version, but downloading directly from github will get you
+the most up to date version that may not be completely stable.
+
+-------------------------------------------------------
+
+A) Download the latest release from ticalc.org:
+
+-------------------------------------------------------
+
+If on Windows:
+
+1. Download the release here:
+http://www.ticalc.org/archives/files/fileinfo/433/43348.html
+
+2. If on 64-bit Windows, run the "win-amd64.exe" executable.
+
+3. If on 32-bit Windows, run the "win32.exe" executable.
+
+4. If neither of those executabales work, extract the .zip archive, cd into it,
+and run the following command:
+
+> python setup.py install
+
+-------------------------------------------------------
+
+If on Linux (or any other system):
+
+1. Download the release here:
+http://www.ticalc.org/archives/files/fileinfo/433/43369.html
+
+2. On the command line, run the following commands:
+
+$ tar xfz calcpkg*.tar.gz
+$ cd calcpkg*
+$ sudo python setup.py install
+
+--------------------------------------------------------
+
+B) Download from github:
+
+Run the following commands in a terminal:
+
+$ git clone https://github.com/TC01/calcpkg
+$ cd calcpkg
+$ python setup.py build
+$ sudo python setup.py install
