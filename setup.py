@@ -12,4 +12,4 @@ setup(	name = "calcpkg",
 		url = "http://www.ticalc.org/archives/files/fileinfo/433/43348.html",
 		packages = ["calcrepo"],
 		scripts = ["calcpkg"],
-		package_data={'ticalcDotOrg': ['ticalc.files.index', 'ticalc.names.index']} )
+		package_data={'calcrepo': ['ticalc.files.index', 'ticalc.names.index']} )
