@@ -3,6 +3,10 @@ import urllib
 from calcrepo import info
 from calcrepo import repo
 
+name = "cemetech"
+url = "http://www.cemetech.net/"
+enabled = False
+
 class CemetechRepository(repo.CalcRepository):
 	
 	def formatDownloadUrl(self, url):
@@ -43,3 +47,8 @@ class CemetechRepository(repo.CalcRepository):
 		result = result[:result.find("</td>")]
 		result = result[result.rfind(">") + 1:]
 		return result
+		
+def getRepository():
+	"""Returns the relevant CalcRepository object for this repo file"""
+	global name, url
+	return CemetechRepository(name, url)

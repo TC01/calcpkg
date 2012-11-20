@@ -8,6 +8,8 @@ Version 2.0 (not yet released to ticalc.org):
 -Package has been renamed to "calcrepo", script is still called calcpkg
 -Argument switches and command line help have all been overhauled
 -Most of the code has been rewritten and further modularized
+-Created new modular Python repo file format, moved repo files to calcrepo.repos subpackage
+-Removed default *.index files from both version control and release archive
 -And more!
 
 ------------------------------------------------------------------------

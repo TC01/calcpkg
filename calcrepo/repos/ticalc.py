@@ -3,6 +3,10 @@ import urllib
 from calcrepo import info
 from calcrepo import repo
 
+name = "ticalc"
+url = "http://www.ticalc.org/"
+enabled = True
+
 class TicalcRepository(repo.CalcRepository):
 			
 	def formatDownloadUrl(self, url):
@@ -135,3 +139,8 @@ class TicalcRepository(repo.CalcRepository):
 		downloads = downloads[:downloads.find(".<BR>")]
 		downloads = downloads[downloads.find("</A> with ") + len("</A> with "):]
 		return downloads
+		
+def getRepository():
+	"""Returns the relevant CalcRepository object for this repo file"""
+	global name, url
+	return TicalcRepository(name, url)
