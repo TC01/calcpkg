@@ -24,7 +24,7 @@ setup(	name = "calcpkg",
 		license = "MIT",
 		author_email = "rosser.bjr@gmail.com",
 		url = "http://www.ticalc.org/archives/files/fileinfo/433/43348.html",
-		packages = ["calcrepo"],
+		packages = ["calcrepo", "calcrepo.repos"],
 		scripts = [scriptname],
 		package_data={'calcrepo': ['ticalc.files.index', 'ticalc.names.index']} )
 

@@ -5,9 +5,8 @@ import argparse
 import os
 import sys
 
-#Any supported repositories need to be imported
-from calcrepo.cemetech import *
-from calcrepo.ticalc import *
+#Import the necessary function from repos subpackage
+from calcrepo.repos import createRepoObjects
 
 #Main function of script... yeah.
 def main():
@@ -39,11 +38,8 @@ def main():
 	else:
 		category = ""
 	
-	#Initialize repositories; if we're only looking at a specific repo remove all the others
-	repositories = {}
-	#Disable Cemetech for now- it doesn't exist yet!
-	#repositories['cemetech'] = CemetechRepository("cemetech", "http://www.cemetech.net/")
-	repositories['ticalc'] = TicalcRepository("ticalc", "http://www.ticalc.org/")
+	#Initialize repositories; all behind-the-scene processing is done by plugins in calcrepo.repos
+	repositories = createRepoObjects()
 	if args.repo != "":
 		for repoName, repository in repositories.iteritems():
 			if repoName != args.repo:
