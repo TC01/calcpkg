@@ -81,6 +81,16 @@ getComplexFileData) to actually do HTML parsing.
 	
 			print fileInfo.printData(self.output)
 			return fileInfo
+			
+Finally, at the end of the page, you will want to provide a getRepository()
+method. The function should return a CemetechRepository object (assuming it's
+the Cemetech repo, of course)- this is the actual object calcpkg will use when
+it runs:
+
+	def getRepository():
+		"""Returns the relevant CalcRepository object for this repo file"""
+		global name, url
+		return CemetechRepository(name, url)
 
 That's it! calcrepo will automatically detect your new repo file and load it
 when the program starts up.
