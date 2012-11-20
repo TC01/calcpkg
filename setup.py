@@ -26,7 +26,7 @@ setup(	name = "calcpkg",
 		url = "http://www.ticalc.org/archives/files/fileinfo/433/43348.html",
 		packages = ["calcrepo", "calcrepo.repos"],
 		scripts = [scriptname],
-		package_data={'calcrepo': ['ticalc.files.index', 'ticalc.names.index']} )
+		package_data={'calcrepo.repos': ['ticalc-files.index', 'ticalc-names.index']} )
 
 #Clean up the mess we made
 try:
