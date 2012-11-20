@@ -1,65 +1,86 @@
 Adding a repository to calcpkg is (relatively) simple. Look at cemetech.py and
 ticalc.py for examples.
 
-This document will walk you through the process by looking at the cemetech source:
+This document will walk you through the process by looking at the cemetech 
+source:
 
-You need to create a new Python file and class that overrides  calcrepo.repo.Calcrepository, like so:
+First, you want to create a new Python file in calcrepo.repos, a subpackage of
+the main calcrepo package. Name it whatever you want to call your repository.
 
-class CemetechRepository(repo.CalcRepository):
+You will need the following imports at the top of the file:
 
-Then, you need to supply three methods- formatDownloadUrl, updateRepoIndexes, and getFileInfo:
+	import urllib
 
-	def formatDownloadUrl(self, url):
-		return "http://www.cemetech.net/programs/index.php?mode=file&path=" + url + "&location=archive"
+	from calcrepo import info
+	from calcrepo import repo
 
-This method returns the URL to a file download. So, let's say we want to download a file
-"/89/asm/memusage.zip", that will be passed into this method and the following URL will be returned:
+Then, you will want to define the "name", "url", and "enabled" global variables:
 
-http://www.cemetech.net/programs/index.php?mode=file&path=/89/asm/memusage.zip&location=archive"
-
-	def updateRepoIndexes(self, verbose=False):
-		return NotImplementedError
-
-Then, you need to supply a function to generate index files. These files are in the format of
-calcrepo/ticalc.files.index and calcrepo/ticalc.names.index- two newline-separated files listing
-all the files and names of every file on the site.
-
-ticalc.org provides an easy way to do this with the master.index file available here:
-http://www.ticalc.org/archives/files/fileinfo/56/5611.html
-
-Cemetech currently does not provide such a method- which is why this function raises a NotImplementedError.
-		
-	def getFileInfo(self, fileUrl, fileName):
-		#Open the info page and create a file info object
-		infoUrl = "http://www.cemetech.net/programs/index.php?mode=file&path=" + fileUrl
-		fileInfo = info.FileInfo(fileUrl, fileName, infoUrl, self.output)
-		infoPage = urllib.urlopen(infoUrl)
-		infoText = infoPage.read()
-		infoPage.close()
-		
-		#Fill in all the data provided by Cemetech
-		fileInfo.repository = self.name
-		fileInfo.fileName = self.getSimpleFileData(infoText, "Download")
-		fileInfo.author = self.getSimpleFileData(infoText, "Author")
-		fileInfo.category = self.getSimpleFileData(infoText, "Folder")
-		fileInfo.description = self.getComplexFileData(infoText, "Description")
-		fileInfo.downloads = self.getComplexFileData(infoText, "Statistics")
+	name = "cemetech"
+	url = "http://www.cemetech.net/"
+	enabled = False
 	
-		print fileInfo.printData(self.output)
-		return fileInfo
+Name and URL are rather self-explanatory (though they do not actually affect the
+operation of calcpkg; they are there for user-friendliness). Enabled allows you
+to manually disable or enable repos. The Cemetech repository is disabled by
+default, as it's unfinished, so we have set enabled = False.
 
-And finally, you want to provide a getFileInfo function. This file takes the URL and
-name of a file and uses HTML parsing to obtain the information returned by the "calcpkg info" command.
+Then you will want to create a calss that overrides calcrepo.repo.CalcRepository
+like so:
 
-The Cemetech repo uses helper functions (getSimpleFileData and getComplexFileData) to actually do HTML
-parsing. 
+	class CemetechRepository(repo.CalcRepository):
 
-You then need to modify the calcpkg script itself- add your repository to the list of input below:
+Then, you need to supply three methods- formatDownloadUrl, updateRepoIndexes, and
+getFileInfo:
 
-#Any supported repositories need to be imported
-from calcrepo.cemetech import *
-from calcrepo.ticalc import *
+		def formatDownloadUrl(self, url):
+			return "http://www.cemetech.net/programs/index.php?mode=file&path=" + url + "&location=archive"
 
-And then add the following line below the comment that says "#Initalize repositories":
+This method returns the URL to a file download. So, let's say we want to download
+a file "/89/asm/memusage.zip", that will be passed into this method and the
+following URL will be returned:
 
-repositories['cemetech'] = CemetechRepository("cemetech", "http://www.cemetech.net/")
+http://www.cemetech.net/programs/index.php?mode=file&path=/89/asm/memusage.zip&location=archive
+
+Then, you need to supply a function to generate index files. These files are in
+the format of calcrepo/ticalc.files.index and calcrepo/ticalc.names.index- two
+newline-separated files listing all the files and names of every file on the
+site.
+
+ticalc.org provides an easy way to do this with the master.index file available
+here: http://www.ticalc.org/archives/files/fileinfo/56/5611.html
+
+Cemetech currently does not provide such a method- which is why this function
+raises a NotImplementedError.
+
+		def updateRepoIndexes(self, verbose=False):
+			return NotImplementedError
+
+And finally, you want to provide a getFileInfo function. This file takes the URL
+and name of a file and uses HTML parsing to obtain the information returned by
+the "calcpkg info" command.
+
+The Cemetech repo uses helper functions (they are called getSimpleFileData and
+getComplexFileData) to actually do HTML parsing. 
+		
+		def getFileInfo(self, fileUrl, fileName):
+			#Open the info page and create a file info object
+			infoUrl = "http://www.cemetech.net/programs/index.php?mode=file&path=" + fileUrl
+			fileInfo = info.FileInfo(fileUrl, fileName, infoUrl, self.output)
+			infoPage = urllib.urlopen(infoUrl)
+			infoText = infoPage.read()
+			infoPage.close()
+		
+			#Fill in all the data provided by Cemetech
+			fileInfo.repository = self.name
+			fileInfo.fileName = self.getSimpleFileData(infoText, "Download")
+			fileInfo.author = self.getSimpleFileData(infoText, "Author")
+			fileInfo.category = self.getSimpleFileData(infoText, "Folder")
+			fileInfo.description = self.getComplexFileData(infoText, "Description")
+			fileInfo.downloads = self.getComplexFileData(infoText, "Statistics")
+	
+			print fileInfo.printData(self.output)
+			return fileInfo
+
+That's it! calcrepo will automatically detect your new repo file and load it
+when the program starts up.

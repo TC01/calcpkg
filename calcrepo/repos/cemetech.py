@@ -4,7 +4,7 @@ from calcrepo import info
 from calcrepo import repo
 
 name = "cemetech"
-url = "http://www.ticalc.org/"
+url = "http://www.cemetech.net/"
 enabled = False
 
 class CemetechRepository(repo.CalcRepository):
