@@ -2,15 +2,15 @@
 
 import os
 
+from calcrepo import util
+
 class Index:
 	"""Index object created for each repository: note, we're assuming that local copies of the indexes will use the same formats"""
 	
 	def __init__(self, repo):
-		##FIXME? Perhaps this should use distutils.sysconfig rather than __file__
-		modulePath = os.path.realpath(__file__)
-		modulePath = modulePath[:modulePath.rfind("/")]
-		self.fileIndex = os.path.join(modulePath, "repos", repo.name + "-files.index")
-		self.nameIndex = os.path.join(modulePath, "repos", repo.name + "-names.index")
+		modulePath = util.getReposPackageFolder()
+		self.fileIndex = os.path.join(modulePath, repo.name + "-files.index")
+		self.nameIndex = os.path.join(modulePath, repo.name + "-names.index")
 		self.repo = repo
 		
 	def count(self, searchString, category="", math=False, game=False, searchFiles=False, extension=""):
