@@ -1,7 +1,7 @@
 import copy
 import os
 import tarfile
-import urllib
+import urllib2
 import zipfile
 
 from calcrepo import index
@@ -46,6 +46,9 @@ class CalcRepository:
 		"""Set an object where all output from calcpkg will be redirected to for this repository"""
 		self.output = newOutput
 		
+	def searchHierarchy(self, fparent='/'):
+		return self.index.searchHierarchy(fparent)
+
 	def searchIndex(self, printData=True):
 		"""Search the index with all the repo's specified parameters"""
 		backupValue = copy.deepcopy(self.output.printData)
@@ -102,7 +105,7 @@ class CalcRepository:
 				
 			#Download the file
 			self.printd("Downloading " + datum[0] + " from " + download)
-			fileData = urllib.urlopen(download).read()
+			fileData = urllib2.urlopen(download).read()
 			dowName = datum[0]
 			dowName = dowName[5:]
 			dowName = dowName.replace('/', '-')
@@ -167,3 +170,19 @@ class CalcRepository:
 		"""Output function for repository to specific output location"""
 		if self.output != None:
 			print >> self.output, message
+
+	def downloadFileFromUrl(self, url):
+		"""Given a URL, download the specified file"""
+		fullurl = self.baseUrl + url
+		try:
+			urlobj = urllib2.urlopen(fullurl)
+			contents = urlobj.read()
+		except urllib2.HTTPError, e:
+			print "HTTP error:", e.code, url
+			return None
+		except urllib2.URLError, e:
+			print "URL error:", e.code, url
+			return None
+		print("Fetched '%s' (size %d bytes)" % (fullurl, len(contents)))
+		return contents
+

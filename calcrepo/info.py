@@ -23,10 +23,10 @@ class FileInfo:
 		self.fileinfo = ""
 
 	def __str__(self):
-		return self.fileName + " located at " + fileUrl
+		return self.fileName + " located at " + self.fileUrl
 		
 	def __repr__(self):
-		return self.fileName + " located at " + fileUrl
+		return self.fileName + " located at " + self.fileUrl
 
 	def printDatum(self, text, datum, stdout = None):
 		if stdout == None:
