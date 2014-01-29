@@ -235,10 +235,13 @@ def structureOutput(fileUrl, fileName, searchFiles, format=True):
 	"""Formats the output of a list of packages"""
 	#First, remove the filename
 	if format:
-		splitUrls = fileUrl[4:].split('/')
+		splitUrls = fileUrl[1:].split('/')
 		fileUrl = ""
 		for splitUrl in splitUrls:
-			if splitUrl != "" and (not "." in splitUrl):
+			# This is a gimmicky fix to make formatting consistent
+			# Cemetech doesn't have /pub/ at the front of it's repo paths
+			# This probably *should* be repo-dependent, but oh well
+			if splitUrl != "" and (not "." in splitUrl) and splitUrl != "pub":
 				fileUrl += splitUrl + '/'
 			elif "." in splitUrl:
 				archiveName = splitUrl
