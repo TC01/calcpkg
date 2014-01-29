@@ -5,7 +5,7 @@ from calcrepo import repo
 
 name = "cemetech"
 url = "http://www.cemetech.net/"
-enabled = False
+enabled = True
 
 class CemetechRepository(repo.CalcRepository):
 	
@@ -13,7 +13,32 @@ class CemetechRepository(repo.CalcRepository):
 		return "http://www.cemetech.net/programs/index.php?mode=file&path=" + url + "&location=archive"
 
 	def updateRepoIndexes(self, verbose=False):
+		archiveRoot = "http://www.cemetech.net/programs/index.php?mode=folder&path="
+		
+		# Recursively list all files
+		
+		
 		return NotImplementedError
+		
+	def updateFromArchivePage(self, archiveRoot, names, files, parent = "/", verbose=False):
+		root = archiveRoot + parent
+		archive = urllib.urlopen(root)
+		archiveText = archive.read()
+		archive.close()
+				
+		# Recursively call this function on all subdirectories
+		working = archiveText
+		folderString = 'solid #aaa;"><a href="index.php?mode=folder&path='
+		while folderString in working:
+			index = working.find(folderString) + len(folderString)
+			folder = working[index:]
+			folder = folder[:folder.find('>') - 1]
+			working = working[index + len(folder):]
+			if folder != "" and folder.count("/") > parent.count("/"):
+				if verbose:
+					self.printd("  Caching " + folder)
+				self.updateFromArchivePage(archiveRoot, names, files, folder, verbose)
+		
 		
 	def getFileInfo(self, fileUrl, fileName):
 		#Open the info page and create a file info object
