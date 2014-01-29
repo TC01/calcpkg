@@ -15,11 +15,40 @@ class CemetechRepository(repo.CalcRepository):
 	def updateRepoIndexes(self, verbose=False):
 		archiveRoot = "http://www.cemetech.net/programs/index.php?mode=folder&path="
 		
+		#Now, try to delete the indexes on system
+		try:
+			os.remove(self.index.fileIndex)
+			self.printd("  Deleted old files index")
+		except:
+			self.printd("  No files index found")
+		try:
+			os.remove(self.index.nameIndex)
+			self.printd("  Deleted old names index")
+		except:
+			self.printd("  No names index found")
+			
+		#Now, try to open new indexes to write to
+		try:
+			files = open(self.index.fileIndex, 'wt')
+		except:
+			self.printd("Error: Unable to create file " + self.index.fileIndex + " in current folder. Quitting.")
+			return
+		try:
+			names = open(self.index.nameIndex, 'wt')
+		except:
+			self.printd("Error: Unable to create file " + self.index.fileIndex + " in current folder. Quitting.")
+			files.close()
+			return
+		
 		# Recursively list all files
+		self.printd("Recursively stepping through Cemetech file categories.")
+		self.updateFromArchivePage(archiveRoot, names, files, verbose=verbose)
 		
-		
-		return NotImplementedError
-		
+		#Close the indexes now
+		files.close()
+		names.close()
+		self.printd("Finished updating cemetech repo.\n")
+
 	def updateFromArchivePage(self, archiveRoot, names, files, parent = "/", verbose=False):
 		root = archiveRoot + parent
 		archive = urllib.urlopen(root)
@@ -38,7 +67,24 @@ class CemetechRepository(repo.CalcRepository):
 				if verbose:
 					self.printd("  Caching " + folder)
 				self.updateFromArchivePage(archiveRoot, names, files, folder, verbose)
-		
+				
+		# Now, step through all files and write them to the names and files objects
+		working = archiveText
+		fileString = "../scripts/countdown.php?" #/73/basic/games/aod73.zip&path=archives"
+		while fileString in working:
+			# Get the filename and path of the file
+			index = working.find(fileString) + len(fileString)
+			fileData = working[index:]
+			fileData = fileData[:fileData.find("&path=archives")]
+			
+			# Get the proper name (title) of the file
+			working = working[index:]
+			nameData = working[working.find('1.25em;"><b>') + len('1.25em;"><b>'):]
+			nameData = nameData[:nameData.find('</B>')]
+			
+			# Write files to index objects
+			files.write(fileData + "\n")
+			names.write(nameData + "\n")
 		
 	def getFileInfo(self, fileUrl, fileName):
 		#Open the info page and create a file info object

@@ -13,11 +13,11 @@ class TicalcRepository(repo.CalcRepository):
 		return "http://www.ticalc.org" + url
 		
 	def updateRepoIndexes(self, verbose=False):
-		self.printd("Reading ticalc.org master index (this will take some time)")
+		self.printd("Reading ticalc.org master index (this will take some time).")
 		
 		#First read in the text (the only network process involved)
 		masterIndex = urllib.urlopen('http://www.ticalc.org/pub/master.index').read()
-		self.printd("  Read in ticalc.org master index")
+		self.printd("  Read in ticalc.org master index.")
 
 		#Now, try to delete the indexes on system
 		try:
@@ -67,7 +67,7 @@ class TicalcRepository(repo.CalcRepository):
 		#Close the indexes now
 		files.close()
 		names.close()
-		self.printd("Finished updating ticalc.org repo\n")
+		self.printd("Finished updating ticalc.org repo.\n")
 
 	def getFileInfo(self, fileUrl, fileName):
 		#Get the category path for the file
