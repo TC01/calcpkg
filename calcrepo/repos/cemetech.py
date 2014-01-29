@@ -10,7 +10,7 @@ enabled = True
 class CemetechRepository(repo.CalcRepository):
 	
 	def formatDownloadUrl(self, url):
-		return "http://www.cemetech.net/programs/index.php?mode=file&path=" + url + "&location=archive"
+		return "http://www.cemetech.net/scripts/countdown.php?" + url
 
 	def updateRepoIndexes(self, verbose=False):
 		archiveRoot = "http://www.cemetech.net/programs/index.php?mode=folder&path="
