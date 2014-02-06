@@ -81,7 +81,7 @@ class CemetechRepository(repo.CalcRepository):
 		
 		#Fill in all the data provided by Cemetech
 		fileInfo.repository = self.name
-		fileInfo.fileName = self.getSimpleFileData(infoText, "Download")
+		fileInfo.fileName = fileName #self.getSimpleFileData(infoText, "Download")
 		fileInfo.author = self.getSimpleFileData(infoText, "Author")
 		fileInfo.category = self.getSimpleFileData(infoText, "Folder")
 		fileInfo.description = self.getComplexFileData(infoText, "Description")
