@@ -84,10 +84,10 @@ class CemetechRepository(repo.CalcRepository):
 		fileInfo.fileName = fileName #self.getSimpleFileData(infoText, "Download")
 		fileInfo.author = self.getSimpleFileData(infoText, "Author")
 		fileInfo.category = self.getSimpleFileData(infoText, "Folder")
-		fileInfo.description = self.getComplexFileData(infoText, "Description")
+		fileInfo.description = self.getFileDescription(infoText)
 		fileInfo.downloads = self.getComplexFileData(infoText, "Statistics")
-	
-		print fileInfo.printData(self.output)
+		
+		fileInfo.printData(self.output)
 		return fileInfo
 
 	def getSimpleFileData(self, fileInfo, data):
@@ -102,6 +102,17 @@ class CemetechRepository(repo.CalcRepository):
 		result = fileInfo[fileInfo.find(data + "</td>") + len(data + "</td>"):]
 		result = result[:result.find("</td>")]
 		result = result[result.rfind(">") + 1:]
+		return result
+		
+	def getFileDescription(self, fileInfo):
+		"""Function to get the description of a file."""
+		data = 'Description'
+		result = fileInfo[fileInfo.find(data + "</td>") + len(data + "</td>"):]
+		result.lstrip()
+		result = result[:result.find("</td>")]
+		result = result[result.rfind("<"):]
+		if "<td" in result:
+			result = result[result.find(">") + 1:]
 		return result
 		
 def getRepository():

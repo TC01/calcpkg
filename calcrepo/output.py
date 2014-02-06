@@ -2,6 +2,8 @@ import datetime
 import os
 import sys
 
+from calcrepo import util
+
 class CalcpkgOutput:
 	"""Writable object used as output for the printd() function- the default place for stuff to be outputted"""
 
@@ -31,8 +33,14 @@ class CalcpkgOutput:
 
 	def write(self, string):
 		"""The write method for a CalcpkgOutput object- print the string"""
-		if ("" == string or '\n' == string or '\r' in string):
+		if ("" == string or '\n' == string or '\r' == string):
 			return
+		
+		# I think it makes sense to do this here; I'm going to nuke/rewrite this
+		# class later anyway...
+		if '\r\n' in string:
+			string = util.replaceNewlines(string, '\r\n')
+		
 		if self.printData:
 			print >> sys.__stdout__, string
 		if self.logData:

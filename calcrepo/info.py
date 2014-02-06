@@ -32,7 +32,8 @@ class FileInfo:
 		if stdout == None:
 			stdout = self.output
 		if datum != "":
-			print >> stdout, text + datum
+			result = text + datum
+			print >> stdout, result
 
 	def printData(self, output = sys.stdout):
 		"""Output all the file data to be written to any writable output"""
