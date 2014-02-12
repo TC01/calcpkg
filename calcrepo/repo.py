@@ -107,7 +107,10 @@ class CalcRepository:
 			self.printd("Downloading " + datum[0] + " from " + download)
 			fileData = urllib2.urlopen(download).read()
 			dowName = datum[0]
-			dowName = dowName[5:]
+			# Again, an annoying hack to deal with the /pub paths in ticalc.org
+			if "/pub" in dowName:
+				dowName = dowName[dowName.find("/pub") + len("/pub"):]
+			dowName = dowName[1:]
 			dowName = dowName.replace('/', '-')
 			dowName = self.downloadDir + dowName
 			try:
@@ -186,3 +189,18 @@ class CalcRepository:
 		print("Fetched '%s' (size %d bytes)" % (fullurl, len(contents)))
 		return contents
 
+	def openIndex(self, filename, description):
+		"""Attempt to delete and recreate an index, returns open file object or None."""
+		try:
+			os.remove(filename)
+			self.printd("  Deleted old " + description)
+		except:
+			self.printd("  No " + description + " found")
+			
+		# Now, attempt to open a new index
+		try:
+			files = open(filename, 'wt')
+		except:
+			self.printd("Error: Unable to create file " + filename + " in current folder. Quitting.")
+			return None
+		return files
