@@ -6,6 +6,7 @@ import zipfile
 
 from calcrepo import index
 from calcrepo import output
+from calcrepo import util
 
 class CalcRepository:
 	"""A class for adding new calcpkg repositories"""
@@ -103,13 +104,16 @@ class CalcRepository:
 			except:
 				pass
 				
-			#Download the file
+			# Download the file; fix our user agent
 			self.printd("Downloading " + datum[0] + " from " + download)
-			fileData = urllib2.urlopen(download).read()
+			headers = { 'User-Agent' : 'Mozilla/5.0' }
+			request = urllib2.Request(download, None, headers)
+			fileData = urllib2.urlopen(request).read()
+			
+			# Now, process the downloaded file
 			dowName = datum[0]
-			# Again, an annoying hack to deal with the /pub paths in ticalc.org
-			if "/pub" in dowName:
-				dowName = dowName[dowName.find("/pub") + len("/pub"):]
+			# Use a helper function to remove /pub, /files
+			dowName = util.removeRootFromName(dowName)
 			dowName = dowName[1:]
 			dowName = dowName.replace('/', '-')
 			dowName = self.downloadDir + dowName

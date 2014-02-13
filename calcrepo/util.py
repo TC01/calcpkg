@@ -2,6 +2,8 @@ import os
 
 from distutils import sysconfig
 
+garbageRoots = "/pub", "/files"
+
 def getReposPackageFolder():
 	"""Returns the folder the package is located in."""
 	libdir = sysconfig.get_python_lib()
@@ -16,4 +18,12 @@ def replaceNewlines(string, newlineChar):
 		string = ""
 		for segment in segments:
 			string += segment
+	return string
+
+def removeRootFromName(string):
+	"""Helper function to remove /pub, /files from string."""
+	global garbageRoots
+	for root in garbageRoots:
+		if root in string:
+			string = string[string.find(root) + len(root):]
 	return string

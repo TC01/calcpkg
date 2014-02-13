@@ -1,29 +1,60 @@
-# So I'm just going to leave this here for now, because:
-# Unlike Cemetech and ticalc.org, Omni uses file IDs for downloads
-# This could be handled by making files.index just be a list of IDs
-# But this sort of breaks searches
-
-# On the other hand, it may be easier to enumerate all files, in that case
-
-# THIS CODE IS CURRENTLY USELESS, DON'T ENABLE THIS REPO
-
-import urllib
+# Shush, the '2' in the module looks ugly.
+import urllib2 as urllib
 
 from calcrepo import info
 from calcrepo import repo
 
 name = "omnimaga"
 url = "http://www.omnimaga.org/"
-enabled = False
+enabled = True
 
 class OmnimagaRepository(repo.CalcRepository):
 	
 	def formatDownloadUrl(self, url):
-		fileid = "???" # See comments above
-		return "http://www.omnimaga.org/index.php?action=downloads;sa=downfile&id=" + fileid
+		return "http://www.omnimaga.org" + url
 
 	def updateRepoIndexes(self, verbose=False):
-		return NotImplementedError
+		self.printd("Reading omnimaga master index (this will take some time).")
+		
+		# First read in the text (the only network process involved)
+		headers = { 'User-Agent' : 'Mozilla/5.0' }
+		request = urllib.Request('http://www.omnimaga.org/files/master.index', None, headers)
+		masterIndex = urllib.urlopen(request).read()
+		self.printd("  Read in omnimaga master index.")
+
+		# Delete and open new indices
+		files = self.openIndex(self.index.fileIndex, "files index")
+		names = self.openIndex(self.index.nameIndex, "names index")
+		if files is None or names is None:
+			try:
+				files.close()
+			except:
+				return
+
+		# Now, parse the enormous data and write index files
+		self.printd(" ")
+		masterIndex = masterIndex[39:]
+		directory = ""
+		while len(masterIndex) > 2:
+			line = masterIndex[:masterIndex.find('\n')]
+			masterIndex = masterIndex[masterIndex.find('\n') + 1:]
+			if line == "":
+				continue
+			if line[:9] == "Index of ":
+				dirData = line[9:]
+				directory = dirData[:dirData.find(" ")]
+				if verbose:
+					self.printd("  Caching " + line[9:])
+			else:
+				fileData = line[:line.find(" ")]
+				files.write(directory + '/' + fileData + '\n')
+				nameData = line[len(fileData)+1:].lstrip()
+				names.write(nameData + '\n')
+		
+		# Close the indexes now
+		files.close()
+		names.close()
+		self.printd("Finished updating omnimaga repo.\n")
 		
 	def getFileInfo(self, fileUrl, fileName):
 		return NotImplementedError
