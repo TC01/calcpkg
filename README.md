@@ -66,14 +66,16 @@ Credits:
 
 -Ben 'TC01' Rosser <rosser.bjr@gmail.com>
 
--Code or other technical assistance:
- github (.gitignore template)
+Code or other technical assistance:
+-Christopher "KermMartian" Mitchell
+-Nathaniel "Eeems" van Diepen
 
--Help, feedback, etc:
- Travis "tev" Evans
- Christopher "KermMartian" Mitchell
- Kevin "DJ Omnimaga" Ouellat
- ephan (david, Scout, ScoutDavid)
- And other Cemetech and Omnimaga forum members
+-github .gitignore template
+
+Help, feedback, etc. from:
+-Travis "tev" Evans
+-Kevin "DJ Omnimaga" Ouellat
+-ephan (david, Scout, ScoutDavid)
+-And other Cemetech and Omnimaga forum members
 
 -ticalc.org staff
