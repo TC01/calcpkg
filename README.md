@@ -64,18 +64,16 @@ not written or maintained by them, it's written by me (see Credits).
 Credits:
 -------
 
--Ben 'TC01' Rosser <rosser.bjr@gmail.com>
+Author: Ben 'TC01' Rosser <rosser.bjr@gmail.com>
 
 Code or other technical assistance:
--Christopher "KermMartian" Mitchell
--Nathaniel "Eeems" van Diepen
-
--github .gitignore template
+* Christopher "KermMartian" Mitchell
+* Nathaniel "Eeems" van Diepen
+* github .gitignore template
 
 Help, feedback, etc. from:
--Travis "tev" Evans
--Kevin "DJ Omnimaga" Ouellat
--ephan (david, Scout, ScoutDavid)
--And other Cemetech and Omnimaga forum members
-
--ticalc.org staff
+* Travis "tev" Evans
+* Kevin "DJ Omnimaga" Ouellat
+* ephan (david, Scout, ScoutDavid)
+* And other Cemetech and Omnimaga forum members
+* ticalc.org staff
