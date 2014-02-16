@@ -33,20 +33,29 @@ class OmnimagaRepository(repo.CalcRepository):
 
 		# Now, parse the enormous data and write index files
 		self.printd(" ")
-		masterIndex = masterIndex[39:]
+		masterIndex = masterIndex[masterIndex.find('\n') + 1:]
 		directory = ""
 		while len(masterIndex) > 2:
 			line = masterIndex[:masterIndex.find('\n')]
 			masterIndex = masterIndex[masterIndex.find('\n') + 1:]
 			if line == "":
 				continue
-			if line[:9] == "Index of ":
-				dirData = line[9:]
+			if line[:len("Index of") + 1] == "Index of " and "/" in line:
+				dirData = line[len("Index of "):]
 				directory = dirData[:dirData.find(" ")]
 				if verbose:
 					self.printd("  Caching " + line[9:])
 			else:
-				fileData = line[:line.find(" ")]
+				# Sadly, Omnimaga can have filenames with spaces.
+				#fileData = line[:line.find(" ")]
+				words = line.split(" ")
+				length = 0
+				for word in words:
+					length += len(word)
+					if '.' in word:
+						break
+				fileData = line[:length]
+
 				files.write(directory + '/' + fileData + '\n')
 				nameData = line[len(fileData)+1:].lstrip()
 				names.write(nameData + '\n')
