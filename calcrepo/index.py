@@ -240,8 +240,9 @@ def structureOutput(fileUrl, fileName, searchFiles, format=True):
 		for splitUrl in splitUrls:
 			# This is a gimmicky fix to make formatting consistent
 			# Cemetech doesn't have /pub/ at the front of it's repo paths
+			# Also, Omnimaga has a /files/ we need to get rid of similarly
 			# This probably *should* be repo-dependent, but oh well
-			if splitUrl != "" and (not "." in splitUrl) and splitUrl != "pub":
+			if splitUrl != "" and (not "." in splitUrl) and (splitUrl != "pub" and splitUrl != "files"):
 				fileUrl += splitUrl + '/'
 			elif "." in splitUrl:
 				archiveName = splitUrl
