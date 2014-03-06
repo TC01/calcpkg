@@ -66,7 +66,7 @@ class OmnimagaRepository(repo.CalcRepository):
 		self.printd("Finished updating omnimaga repo.\n")
 		
 	def getFileInfo(self, fileUrl, fileName):
-		return NotImplementedError
+		raise NotImplementedError
 
 def getRepository():
 	"""Returns the relevant CalcRepository object for this repo file"""

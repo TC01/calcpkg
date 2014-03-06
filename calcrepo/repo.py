@@ -78,8 +78,12 @@ class CalcRepository:
 		self.printd(" ")
 		fileInfos = []
 		for datum in data:
-			fileInfo = self.getFileInfo(datum[0], datum[1])
-			fileInfos.append(fileInfo)
+			try:
+				fileInfo = self.getFileInfo(datum[0], datum[1])
+				fileInfos.append(fileInfo)
+			except NotImplementedError:
+				self.printd("Error: the info command is not supported for " + self.name + ".")
+				return []
 		return fileInfos
 		
 	def downloadFiles(self, prompt=True, extract=False):
