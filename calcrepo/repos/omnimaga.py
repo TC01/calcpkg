@@ -1,3 +1,5 @@
+import json
+
 # Shush, the '2' in the module looks ugly.
 import urllib2 as urllib
 
@@ -66,7 +68,26 @@ class OmnimagaRepository(repo.CalcRepository):
 		self.printd("Finished updating omnimaga repo.\n")
 		
 	def getFileInfo(self, fileUrl, fileName):
-		raise NotImplementedError
+		headers = { 'User-Agent' : 'Mozilla/5.0' }
+		jsonUrl = self.formatDownloadUrl(fileUrl) + "?info"
+		print jsonUrl
+		request = urllib.Request(jsonUrl, None, headers)
+		jsonText = urllib.urlopen(request)
+
+		info = json.load(jsonText)
+		fileInfo = info.FileInfo(fileUrl, fileName, infoUrl, self.output)
+
+		# Parse the json data.
+		fileInfo.author = info['author']
+		fileInfo.description = info['description']
+		fileInfo.category = info['category']
+		fileInfo.downloads = info['downloads']
+		fileInfo.fileDate = info['fileDate']
+
+		jsonText.close()
+
+		return fileInfo
+
 
 def getRepository():
 	"""Returns the relevant CalcRepository object for this repo file"""
