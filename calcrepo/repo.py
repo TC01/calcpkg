@@ -110,7 +110,7 @@ class CalcRepository:
 				
 			# Download the file; fix our user agent
 			self.printd("Downloading " + datum[0] + " from " + download)
-			headers = { 'User-Agent' : 'Mozilla/5.0' }
+			headers = { 'User-Agent' : 'calcpkg/2.0' }
 			request = urllib2.Request(download, None, headers)
 			fileData = urllib2.urlopen(request).read()
 			

@@ -19,7 +19,7 @@ class OmnimagaRepository(repo.CalcRepository):
 		self.printd("Reading omnimaga master index (this will take some time).")
 		
 		# First read in the text (the only network process involved)
-		headers = { 'User-Agent' : 'Mozilla/5.0' }
+		headers = { 'User-Agent' : 'calcpkg/2.0' }
 		request = urllib.Request('http://www.omnimaga.org/files/master.index', None, headers)
 		masterIndex = urllib.urlopen(request).read()
 		self.printd("  Read in omnimaga master index.")
@@ -68,23 +68,27 @@ class OmnimagaRepository(repo.CalcRepository):
 		self.printd("Finished updating omnimaga repo.\n")
 		
 	def getFileInfo(self, fileUrl, fileName):
-		headers = { 'User-Agent' : 'Mozilla/5.0' }
+		headers = { 'User-Agent' : 'calcpkg/2.0' }
 		jsonUrl = self.formatDownloadUrl(fileUrl) + "?info"
-		print jsonUrl
 		request = urllib.Request(jsonUrl, None, headers)
 		jsonText = urllib.urlopen(request)
 
-		info = json.load(jsonText)
-		fileInfo = info.FileInfo(fileUrl, fileName, infoUrl, self.output)
+		# master.index doesn't have JSON. Why is master.index even in the database?
+		try:
+			jsonInfo = json.load(jsonText)
+		except ValueError:
+			return None
+		fileInfo = info.FileInfo(fileUrl, fileName, jsonUrl, self.output)
 
 		# Parse the json data.
-		fileInfo.author = info['author']
-		fileInfo.description = info['description']
-		fileInfo.category = info['category']
-		fileInfo.downloads = info['downloads']
-		fileInfo.fileDate = info['fileDate']
+		fileInfo.author = jsonInfo['author']
+		fileInfo.description = jsonInfo['description']
+		fileInfo.category = jsonInfo['category']
+		fileInfo.downloads = jsonInfo['downloads']
+		fileInfo.fileDate = jsonInfo['fileDate']
 
 		jsonText.close()
+		fileInfo.printData(self.output)
 
 		return fileInfo
 
