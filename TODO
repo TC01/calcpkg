@@ -7,4 +7,11 @@ TODO before v2.0 is released:
 	(Decide what to do)
 -What is the best way to present inline images in Omnimaga files descriptions?
 -Rewrite the INSTALL documentation (and the README, probably).
+-Figure out how best to format the output from the list command
+
 -More, possibly.
+
+TODO, in the long term:
+
+-Rewrite the index sorting code (this is dangerous, but that code is really old and terrible...)
+-The redirectable output hack works, but it would probably be a better idea to use something like logging.
