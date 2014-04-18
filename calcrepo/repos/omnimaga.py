@@ -1,4 +1,5 @@
 import json
+import HTMLParser
 
 # Shush, the '2' in the module looks ugly.
 import urllib2 as urllib
@@ -82,10 +83,14 @@ class OmnimagaRepository(repo.CalcRepository):
 
 		# Parse the json data.
 		fileInfo.author = jsonInfo['author']
-		fileInfo.description = jsonInfo['description']
 		fileInfo.category = jsonInfo['category']
 		fileInfo.downloads = jsonInfo['downloads']
 		fileInfo.fileDate = jsonInfo['fileDate']
+
+		# unescape the description.
+		fileInfo.description = jsonInfo['description']
+		parser = HTMLParser.HTMLParser()
+		fileInfo.description = parser.unescape(fileInfo.description)
 
 		jsonText.close()
 		fileInfo.printData(self.output)
