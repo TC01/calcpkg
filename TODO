@@ -1,0 +1,10 @@
+Things to be done!
+
+TODO before v2.0 is released:
+
+-See if it's okay to release with the current Cemetech support.
+-Do something about newlines in file descriptions.
+	(Decide what to do)
+-What is the best way to present inline images in Omnimaga files descriptions?
+-Rewrite the INSTALL documentation (and the README, probably).
+-More, possibly.
