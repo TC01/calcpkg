@@ -1,3 +1,4 @@
+import datetime
 import json
 import HTMLParser
 
@@ -85,7 +86,8 @@ class OmnimagaRepository(repo.CalcRepository):
 		fileInfo.author = jsonInfo['author']
 		fileInfo.category = jsonInfo['category']
 		fileInfo.downloads = jsonInfo['downloads']
-		fileInfo.fileDate = jsonInfo['fileDate']
+		jsonDate = jsonInfo['fileDate']
+		fileInfo.fileDate = datetime.datetime.fromtimestamp(int(jsonDate)).strftime('%a %b %d %H:%M:%S %Y')
 
 		# unescape the description.
 		fileInfo.description = jsonInfo['description']
@@ -102,3 +104,4 @@ def getRepository():
 	"""Returns the relevant CalcRepository object for this repo file"""
 	global name, url
 	return OmnimagaRepository(name, url)
+
