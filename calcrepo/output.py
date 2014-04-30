@@ -36,10 +36,10 @@ class CalcpkgOutput:
 		if ("" == string or '\n' == string or '\r' == string):
 			return
 		
-		# I think it makes sense to do this here; I'm going to nuke/rewrite this
-		# class later anyway...
-		if '\r\n' in string:
-			string = util.replaceNewlines(string, '\r\n')
+		# Filter out any \r newlines.
+		string = string.replace("\r", "")
+#		if '\r\n' in string:
+#			string = util.replaceNewlines(string, '\r\n')
 		
 		if self.printData:
 			print >> sys.__stdout__, string

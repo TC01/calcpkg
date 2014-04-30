@@ -189,12 +189,12 @@ class CalcRepository:
 			urlobj = urllib2.urlopen(fullurl)
 			contents = urlobj.read()
 		except urllib2.HTTPError, e:
-			print "HTTP error:", e.code, url
+			self.printd("HTTP error:", e.code, url)
 			return None
 		except urllib2.URLError, e:
-			print "URL error:", e.code, url
+			self.printd("URL error:", e.code, url)
 			return None
-		print("Fetched '%s' (size %d bytes)" % (fullurl, len(contents)))
+		self.printd("Fetched '%s' (size %d bytes)" % (fullurl, len(contents)))
 		return contents
 
 	def openIndex(self, filename, description):
