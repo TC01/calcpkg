@@ -1,4 +1,5 @@
 import os
+import sys
 
 from calcrepo import util
 
@@ -109,6 +110,12 @@ class Index:
 		else:
 			fileData, nameData = self.searchFilesIndex(nameData, fileData, self.fileIndex, searchString, category, math, game, extension)
 			
+		# Bail out if we failed to do either of those things.
+		if fileData is None or nameData is None:
+			self.repo.printd("Error: failed to load one or more of the index files for this repo. Exiting.")
+			self.repo.printd("Please run 'calcpkg update' and retry this command.")
+			sys.exit(1)
+			
 		#Prepare output to parse
 		for key, value in nameData.iteritems():
 			fileValue = fileData[key]
@@ -139,7 +146,7 @@ class Index:
 			fileFile = open(fileIndex, 'rt')
 		except IOError:
 			self.repo.printd("Error: Unable to read index file " + self.fileIndex)
-			return
+			return None, None
 			
 		count = 1
 		for line in fileFile:
@@ -192,7 +199,7 @@ class Index:
 			nameFile = open(nameIndex, 'rt')
 		except IOError:
 			self.repo.printd("Error: Unable to read index file " + self.fileIndex)
-			return
+			return None
 			
 		count = 1
 		for line in nameFile:
