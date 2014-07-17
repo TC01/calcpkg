@@ -68,4 +68,4 @@ class FileInfo:
 		self.printDatum("Source Code   : ", self.sourceCode, output)
 		self.printDatum("Description   : ", self.description, output)
 #		print("\n", output)
-		print >> output, "\n"
+		print >> output, "\n\n"

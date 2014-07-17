@@ -89,10 +89,14 @@ class OmnimagaRepository(repo.CalcRepository):
 		jsonDate = jsonInfo['fileDate']
 		fileInfo.fileDate = datetime.datetime.fromtimestamp(int(jsonDate)).strftime('%a %b %d %H:%M:%S %Y')
 
-		# unescape the description.
+		# unescape the description, do some magic.
 		fileInfo.description = jsonInfo['description']
 		parser = HTMLParser.HTMLParser()
 		fileInfo.description = parser.unescape(fileInfo.description)
+		fileInfo.description = fileInfo.description.replace("[img]", "")
+		fileInfo.description = fileInfo.description.replace("[/img]", "")
+		fileInfo.description = fileInfo.description.replace("[youtube]", "")
+		fileInfo.description = fileInfo.description.replace("[/youtube]", "")
 
 		jsonText.close()
 		fileInfo.printData(self.output)

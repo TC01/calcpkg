@@ -10,7 +10,7 @@ class Index:
 	"""Index object created for each repository: note, we're assuming that local copies of the indexes will use the same formats"""
 	
 	def __init__(self, repo):
-		modulePath = util.getReposPackageFolder()
+		modulePath = os.path.join(util.getScriptLocation(), "repos")
 		self.fileIndex = os.path.join(modulePath, repo.name + ".files.index")
 		self.nameIndex = os.path.join(modulePath, repo.name + ".names.index")
 		self.dirIndex = os.path.join(modulePath, repo.name + ".dirs.index")

@@ -6,7 +6,7 @@ import os
 import sys
 
 #Import the necessary function from repos subpackage
-from calcrepo.repos import createRepoObjects
+from repos import createRepoObjects
 
 #Main function of script... yeah.
 def main():

@@ -27,3 +27,10 @@ def removeRootFromName(string):
 		if root in string:
 			string = string[string.find(root) + len(root):]
 	return string
+
+def getScriptLocation():
+	"""Helper function to get the location of a Python file."""
+	location = os.path.abspath("./")
+	if __file__.rfind("/") != -1:
+		location = __file__[:__file__.rfind("/")]
+	return location
