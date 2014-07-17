@@ -33,6 +33,12 @@ class Index:
 		else:
 			fileData, nameData = self.searchFilesIndex(nameData, fileData, self.fileIndex, searchString, category, math, game, extension)
 
+		# Bail out if we failed to do either of those things.
+		if fileData is None or nameData is None:
+			self.repo.printd("Error: failed to load one or more of the index files for this repo. Exiting.")
+			self.repo.printd("Please run 'calcpkg update' and retry this command.")
+			sys.exit(1)
+
 		#Now obtain a count (exclude "none" elements)
 		count = 0
 		for element in nameData:
