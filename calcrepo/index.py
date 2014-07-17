@@ -122,11 +122,13 @@ class Index:
 		for key, value in nameData.iteritems():
 			fileValue = fileData[key]
 			data.append([fileValue, value])
-			folder = fileValue.rpartition("/")[0]
-			if space < len(folder):
-				space = len(folder)
-			if longestFile < len(value):
-				longestFile = len(value)
+			if not fileValue is None:
+				folder = fileValue.rpartition("/")[0]
+				if space < len(folder):
+					space = len(folder)
+			if not value is None:
+				if longestFile < len(value):
+					longestFile = len(value)
 
 		#Print output
 		space += 5
