@@ -116,22 +116,30 @@ class Index:
 			self.repo.printd("Please run 'calcpkg update' and retry this command.")
 			sys.exit(1)
 			
-		#Prepare output to parse
+		# Prepare output to parse
+		space = 0
+		longestFile = len("File Name:")
 		for key, value in nameData.iteritems():
 			fileValue = fileData[key]
 			data.append([fileValue, value])
-		
+			folder = fileValue.rpartition("/")[0]
+			if space < len(folder):
+				space = len(folder)
+			if longestFile < len(value):
+				longestFile = len(value)
+
 		#Print output
+		space += 5
 		if len(data) != 0:
 			self.repo.printd("Results for repo: " + self.repo.name)
-			self.repo.printd(structureOutput("File Category:", "File Name:", False, False))
-			self.repo.printd("===========================================================================================")
+			self.repo.printd(structureOutput("File Category:", "File Name:", False, False, space))
+			self.repo.printd("-" * (space + longestFile))
 		else:
 			self.repo.printd("No packages found")
 		returnData = []
 		for datum in data:
 			try:
-				self.repo.printd(structureOutput(datum[0], datum[1], searchFiles))
+				self.repo.printd(structureOutput(datum[0], datum[1], searchFiles, True, space))
 				returnData.append([datum[0], datum[1]])
 			except:
 				pass
@@ -238,7 +246,7 @@ class Index:
 		nameFile.close()
 		return nameData
 		
-def structureOutput(fileUrl, fileName, searchFiles, format=True):
+def structureOutput(fileUrl, fileName, searchFiles, format=True, space=40):
 	"""Formats the output of a list of packages"""
 	#First, remove the filename
 	if format:
@@ -257,12 +265,9 @@ def structureOutput(fileUrl, fileName, searchFiles, format=True):
 	#Now, format the output
 	if searchFiles:
 		fileName = archiveName
+	pause = (space - len(fileUrl))
 	output = fileUrl
-	if len(output) > 40:
-		output += " " + fileName
-	else:
-		while len(output) <= 40:
-			output += " "
-		output += fileName
+	output += (" " * pause)
+	output += fileName
 	return output
 
