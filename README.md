@@ -1,21 +1,22 @@
-calcpkg 2.0 (in development) - ticalc.org Package Manager
+calcpkg 2.0 - ticalc.org Package Manager
 =========================================================
 
 calcpkg is a command line "package manager" for ticalc.org and other websites
 with repositories of Texas Instruments calculator software.
 
-What does that actually mean? Well, let's say you own a TI-83+ graphing calculator.
-The 83+ can be programmed in a handful of languages, such as the builtin TI-BASIC
-scripting language and z80 assembly. Using software such as TiLP, you can download
-programs to your calculator to run them.
+What does that actually mean? Well, let's say you own a TI-83+ graphing
+calculator. The 83+ can be programmed in a handful of languages, such as the
+builtin TI-BASIC scripting language and z80 assembly. Using software such as
+TiLP, you can download programs to your calculator to run them.
 
-ticalc.org is the world's largest collection of TI graphing calculator software. It
-features programs for every calculator model in almost every possible language, from
-the ancient TI-81 to the newest models of TI-Nspire.
+ticalc.org is the world's largest collection of TI graphing calculator
+software. It features programs for every calculator model in almost every
+possible language, from the ancient TI-81 to the newest models of TI-Nspire.
 
-This program is a CLI interface to ticalc.org, allowing you to download programs
-from the command line without having to browse the website in a web browser. It can
-be configured to support other repositories as well.
+This program is a CLI interface to ticalc.org, allowing you to download
+programs from the command line without having to browse the website in a web
+browser. It can be configured to support other repositories as well, and
+currently ships with support for the Omnimaga and Cemetech community sites.
 
 Usage:
 ------
@@ -60,6 +61,13 @@ This program is distributed under the MIT license, see LICENSE for details.
 While ticalc.org staff members have okayed the use of this program to download
 files from their website, this is not an endorsement of it- the program is
 not written or maintained by them, it's written by me (see Credits).
+
+The same is true for the Cemetech and Omnimaga staff members.
+
+Sites supported:
+* [ticalc.org](http://www.ticalc.org/)
+* [Cemetech](http://www.cemetech.net/)
+* [Omnimaga](http://www.omnimaga.org/)
 
 Credits:
 -------

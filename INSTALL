@@ -1,10 +1,24 @@
 Installing calcpkg:
 
-There are two ways to install. Downloading the archive from ticalc.org will get
-you the last released version, but downloading directly from github will get you
-the most up to date version that may not be completely stable.
+There are a multitude of ways to install calcpkg.
 
--------------------------------------------------------
+You will need a Python 2.x install (I'm sorry, 3.x support will get added
+soon, I just haven't gotten around to it) with setuptools.
+
+The recommended way is to use pip. On a system with pip, run the following
+command:
+
+```pip install calcpkg```
+
+(Optionally, run the command as "sudo pip install calcpkg").
+
+This will pull the package straight from PyPI, the Python Package Index.
+
+
+Other ways: you can download an archive from ticalc.org and install it
+manually, or d
+
+Or, if you want to be really meta, you can use calcpkg to update itself.
 
 A) Download the latest release from ticalc.org:
 
@@ -19,7 +33,7 @@ http://www.ticalc.org/archives/files/fileinfo/433/43348.html
 
 3. If on 32-bit Windows, run the "win32.exe" executable.
 
-4. If neither of those executabales work, extract the .zip archive, cd into it,
+4. If neither of those executables work, extract the .zip archive, cd into it,
 and run the following command:
 
 > python setup.py install
@@ -45,5 +59,18 @@ Run the following commands in a terminal:
 
 $ git clone https://github.com/TC01/calcpkg
 $ cd calcpkg
-$ python setup.py build
 $ sudo python setup.py install
+
+--------------------------------------------------------
+
+C) Use calcpkg itself:
+
+Run the following commands in a terminal:
+
+$ sudo calcpkg -r ticalc update
+$ calcpkg -fx -c win get calcpkg
+$ cd calcpkg*
+$ sudo python setup.py install
+
+I don't recommend actually doing this, because PyPI will be updated faster
+than ticalc.org (and github the fastest, obviously), but it's fun. :)

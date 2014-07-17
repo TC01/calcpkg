@@ -2,14 +2,17 @@ calcpkg - Changelog
 
 ------------------------------------------------------------------------
 
-Version 2.0 (not yet released to ticalc.org):
+Version 2.0 (seventh version released to ticalc.org, first to PyPI, will be uploaded 7/16/14):
 
--Now supports multiple 'repositories' (preliminary support for Cemetech exists)
+-Now supports multiple 'repositories': run "calcpkg -r [repo]" to enable a specific repo only.
+-Added full support for Omnimaga!
+-Added working (but not yet optimal) support for Cemetech!
 -Package has been renamed to "calcrepo", script is still called calcpkg
 -Argument switches and command line help have all been overhauled
 -Most of the code has been rewritten and further modularized
 -Created new modular Python repo file format, moved repo files to calcrepo.repos subpackage
 -Removed default *.index files from both version control and release archive
+-Uploaded package to PyPI, so "pip install calcpkg" is now the simplest way to install
 -And more!
 
 ------------------------------------------------------------------------
