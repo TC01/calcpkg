@@ -2,6 +2,13 @@ calcpkg - Changelog
 
 ------------------------------------------------------------------------
 
+Version 2.0.1 Patch: 7/21/2014
+
+-Fixed a bug where "calcpkg count" crashed on missing index files.
+-Fixed a bug where any category search caused a crash.
+
+------------------------------------------------------------------------
+
 Version 2.0 (seventh version released to ticalc.org, first to PyPI, will be uploaded 7/16/14):
 
 -Now supports multiple 'repositories': run "calcpkg -r [repo]" to enable a specific repo only.

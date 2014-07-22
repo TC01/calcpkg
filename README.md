@@ -1,4 +1,4 @@
-calcpkg 2.0 - ticalc.org Package Manager
+calcpkg 2.1 - ticalc.org Package Manager
 =========================================================
 
 calcpkg is a command line "package manager" for ticalc.org and other websites
